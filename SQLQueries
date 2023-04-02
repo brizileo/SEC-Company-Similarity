@@ -1,0 +1,18 @@
+ SELECT DISTINCT X.*,Y.company
+ FROM 
+    (
+    SELECT DISTINCT TargetTickerFy AS TickerFy
+    FROM tblSimilarityScoringTruncated
+    UNION
+    SELECT DISTINCT SourceTickerFy
+    FROM tblSimilarityScoringTruncated 
+    ) X
+INNER JOIN tblMasterFact Y
+ON X.TickerFy = Y.nodeID
+WHERE company LIKE '%UBS%'
+
+
+
+SELECT *
+FROM tblSimilarityScoringTruncated 
+WHERE TargetTickerFy LIKE 'UBS_%' OR SourceTickerFy LIKE 'UBS_%' 
